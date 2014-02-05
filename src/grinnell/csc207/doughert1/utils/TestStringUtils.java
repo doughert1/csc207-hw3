@@ -8,7 +8,7 @@ public class TestStringUtils
 {
 
   @Test
-  public void test()
+  public void testSplitAt()
   {
     assertArrayEquals (new String[] { "a", "b", "c" },
                        StringUtils.splitAt ("a:b:c", ':'));
@@ -30,4 +30,14 @@ public class TestStringUtils
                        StringUtils.splitAt ("Bucky Barnes:the Winter Soldier", ':')); 
   }
 
+  @Test
+  public void testDeLeet()
+  {
+    assertEquals ("e", StringUtils.deLeet ("3"));
+    assertEquals ("leet", StringUtils.deLeet ("133+"));
+    assertEquals ("eat banana", StringUtils.deLeet ("3@+ |3@|\\|@|\\|@"));
+    assertEquals ("rock 'n' roll", StringUtils.deLeet ("r0ck '|\\|' r011"));
+    assertEquals ("can you hear the people sing?", StringUtils.deLeet ("c@|\\| y0u #3@r +#3 p30p13 $i|\\|g?"));
+    assertEquals ("sweet iced tea", StringUtils.deLeet ("$w33+ ic3d +3@"));
+  }
 }
