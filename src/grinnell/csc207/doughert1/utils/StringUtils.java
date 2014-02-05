@@ -36,20 +36,35 @@ public class StringUtils
   }// splitAt (str, ch)
 
   // Part B:
-  // public static String[] splitCSV (String str)
-  // {
-  // int len = 1;
-  // for (int i = 0; i < str.length(); i++)
-  // {
-  // if(str.charAt(i) == '\"' && str.charAt(i+1) != '\"')
-  // len++;
-  // }//for i
-  //
-  // String[] cvsString = new String[len];
-  // int sep
-  //
-  // return csvString;
-  // } //splitCSV (str, ch)
+   public static String[] splitCSV (String str)
+   {
+   int len = 1;
+   for (int i = 0; i < str.length(); i++)
+   {
+   if(str.charAt(i) == '\"' && str.charAt(i+1) != '\"')
+   len++;
+   }//for i
+  
+   String[] csvString = new String[len];
+   boolean quotation = false;
+   int count = 0;
+   
+   for(int j = 0; j < str.length(); j++)
+     {
+       if(str.charAt(j) == '\"')
+         quotation = true;
+       while(quotation)
+         {
+           if(str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
+             quotation = false;
+           count++;
+         }//while
+       csvString[j] = str.substring(j, count);
+       count++;
+     }
+  
+   return csvString;
+   } //splitCSV (str, ch)
 
   // Part C:
   public static String deLeet(String str)
@@ -120,4 +135,6 @@ public class StringUtils
 
     return deLeeted.toString();
   } // deLeet (str)
+  
+ // public static 
 }//class StringUtils
