@@ -15,16 +15,21 @@ public class StringUtils
     String[] splitString = new String[len];
     int sep = str.indexOf(ch);
     int track = 0;
-    for (int j = 0; j <= len; j++)
+
+    for (int j = 0; j < len; j++)
       {
-        while (sep != -1)
+        if (sep == -1)
+          {
+            splitString[j] = str.substring(track);
+          }// if sep == -1
+        else
           {
             splitString[j] = str.substring(track, sep);
             track = sep + 1;
             sep = str.indexOf(ch, track);
-          } // while
-      } // for j
-    
+          }// else
+      }// for j
+
     return splitString;
-  }//splitAt (str, ch)
+  }// splitAt (str, ch)
 }

@@ -24,6 +24,10 @@ public class TestStringUtils
                        StringUtils.splitAt (":a", ':'));
     assertArrayEquals ("trailing empty field", new String[] { "a", "" },
                        StringUtils.splitAt ("a:", ':')); 
+    assertArrayEquals ("full words", new String[] { "Bruce", "the", "brother" },
+                       StringUtils.splitAt ("Bruce:the:brother", ':')); 
+    assertArrayEquals ("multi-word strings", new String[] { "Bucky Barnes", "the Winter Soldier" },
+                       StringUtils.splitAt ("Bucky Barnes:the Winter Soldier", ':')); 
   }
 
 }
