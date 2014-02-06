@@ -39,6 +39,15 @@ public class StringUtils
   }// splitAt (str, ch)
 
   // Part B:
+  
+  /*
+   * Discussed this problem with:
+   * Alex
+   * Elias
+   * Vee
+   * Erin
+   */
+  
   public static String[] splitCSV(String str)
   {
     ArrayList<String> csv = new ArrayList<String>();
@@ -82,6 +91,8 @@ public class StringUtils
   } // splitCSV (str, ch)
 
   // Part C:
+  
+  //debug help from: Professor Rebelsky
   public static String deLeet(String str)
   {
     int len = str.length();
@@ -153,26 +164,32 @@ public class StringUtils
 
   public static void nameGame(String name)
   {
-    String bname = "B";
-    String fname = "F";
-    String mname = "M";
+    String bname, fname, mname;
 
-    char firstLet = name.charAt(0);
+    char firstLet;
     int i = 0;
-    while (i < name.length() && firstLet != 'a' && firstLet != 'e'
-           && firstLet != 'i' && firstLet != 'o' && firstLet != 'u')
+    boolean run = true;
+    while (run)
       {
-        i++;
-      } // while
-    fname = fname.concat(name.substring(i));
-    bname = bname.concat(name.substring(i));
-    mname = mname.concat(name.substring(i));
+        firstLet = name.charAt(0);
+        while (firstLet != 'a' && firstLet != 'e' && firstLet != 'i'
+               && firstLet != 'o' && firstLet != 'u' && firstLet != 'y')
+          {
+            firstLet = name.charAt(i);
+            i++;
+          } // while
+        run = false;
+      }// while
+
+    fname = "F".concat(name.substring(i - 1));
+    bname = "B".concat(name.substring(i - 1));
+    mname = "M".concat(name.substring(i - 1));
 
     PrintWriter pen = new PrintWriter(System.out, true);
     pen.println(name + "!");
     pen.println(name + ", " + name + " bo " + bname + " Bonana fanna fo "
                 + fname);
     pen.println("Fee fy mo " + mname + ", " + name);
-    pen.close();
+    pen.flush();
   } // nameGame
 }// class StringUtils
