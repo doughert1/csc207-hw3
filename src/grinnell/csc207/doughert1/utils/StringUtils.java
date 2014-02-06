@@ -1,5 +1,7 @@
 package grinnell.csc207.doughert1.utils;
 
+import java.util.ArrayList;
+
 public class StringUtils
 {
 
@@ -36,35 +38,40 @@ public class StringUtils
   }// splitAt (str, ch)
 
   // Part B:
-   public static String[] splitCSV (String str)
-   {
-   int len = 1;
-   for (int i = 0; i < str.length(); i++)
-   {
-   if(str.charAt(i) == '\"' && str.charAt(i+1) != '\"')
-   len++;
-   }//for i
-  
-   String[] csvString = new String[len];
-   boolean quotation = false;
-   int count = 0;
-   
-   for(int j = 0; j < str.length(); j++)
-     {
-       if(str.charAt(j) == '\"')
-         quotation = true;
-       while(quotation)
-         {
-           if(str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
-             quotation = false;
-           count++;
-         }//while
-       csvString[j] = str.substring(j, count);
-       count++;
-     }
-  
-   return csvString;
-   } //splitCSV (str, ch)
+  public static String[] splitCSV(String str)
+  {
+    ArrayList<String> csv = new ArrayList<String>();
+
+    boolean quotation = false;
+    int count = 0;
+
+    for (int j = 0; j < str.length(); j++)
+      {
+        if (str.charAt(j) == '\"')
+          quotation = true;
+        while (quotation)
+          {
+            count++;
+            if (count < str.length())
+              {
+                if (str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
+                  quotation = false;
+              }
+            else if (str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
+              quotation = false;
+          }// while
+        while (!quotation && str.charAt(j) != ',')
+          {
+            count++;
+          }
+        csv.add(str.substring(j, count));
+        count++;
+      }
+    csv.trimToSize();
+    String[] csvString = new String[csv.size()];
+    csv.toArray(csvString);
+    return csvString;
+  } // splitCSV (str, ch)
 
   // Part C:
   public static String deLeet(String str)
@@ -135,6 +142,6 @@ public class StringUtils
 
     return deLeeted.toString();
   } // deLeet (str)
-  
- // public static 
-}//class StringUtils
+
+  // public static
+}// class StringUtils
