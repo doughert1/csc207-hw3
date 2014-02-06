@@ -1,6 +1,7 @@
 package grinnell.csc207.doughert1.utils;
 
 import java.util.ArrayList;
+import java.io.PrintWriter;
 
 public class StringUtils
 {
@@ -43,30 +44,37 @@ public class StringUtils
     ArrayList<String> csv = new ArrayList<String>();
 
     boolean quotation = false;
-    int count = 0;
-
-    for (int j = 0; j < str.length(); j++)
+    int count = 1;
+    int j = 0;
+    while (j < str.length())
       {
-        if (str.charAt(j) == '\"')
-          quotation = true;
-        while (quotation)
+        if (str.charAt(j) != ',')
           {
-            count++;
-            if (count < str.length())
+            if (str.charAt(j) == '\"' && str.charAt(j + 1) != '\"')
               {
-                if (str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
+                quotation = true;
+                j++;
+              }// if quote begins
+            while (quotation)
+              {
+                count++;
+                if (count < str.length())
+                  {
+                    if (str.charAt(count) == '\"'
+                        && str.charAt(count + 1) != '\"')
+                      quotation = false;
+                  }// if quote ends
+                else if (str.charAt(count) == '\"')
                   quotation = false;
-              }
-            else if (str.charAt(count) == '\"' && str.charAt(count + 1) != '\"')
-              quotation = false;
-          }// while
-        while (!quotation && str.charAt(j) != ',')
-          {
-            count++;
-          }
-        csv.add(str.substring(j, count));
+              }// while
+          }// if not comma
+        if (count < str.length())
+          csv.add(str.substring(j, count));
+        else
+          csv.add(str.substring(j));
         count++;
-      }
+        j = count;
+      }// while
     csv.trimToSize();
     String[] csvString = new String[csv.size()];
     csv.toArray(csvString);
@@ -143,5 +151,28 @@ public class StringUtils
     return deLeeted.toString();
   } // deLeet (str)
 
-  // public static
+  public static void nameGame(String name)
+  {
+    String bname = "B";
+    String fname = "F";
+    String mname = "M";
+
+    char firstLet = name.charAt(0);
+    int i = 0;
+    while (i < name.length() && firstLet != 'a' && firstLet != 'e'
+           && firstLet != 'i' && firstLet != 'o' && firstLet != 'u')
+      {
+        i++;
+      } // while
+    fname = fname.concat(name.substring(i));
+    bname = bname.concat(name.substring(i));
+    mname = mname.concat(name.substring(i));
+
+    PrintWriter pen = new PrintWriter(System.out, true);
+    pen.println(name + "!");
+    pen.println(name + ", " + name + " bo " + bname + " Bonana fanna fo "
+                + fname);
+    pen.println("Fee fy mo " + mname + ", " + name);
+    pen.close();
+  } // nameGame
 }// class StringUtils
